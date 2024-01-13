@@ -5,6 +5,11 @@ export interface SceneResponse {
   scenes: Scene[];
 }
 
+export interface VideoRequest {
+  title: string;
+  scenes: Scene[];
+}
+
 const wait = (ms: number) =>
   new Promise((res) => {
     setTimeout(res, ms);
@@ -58,3 +63,11 @@ export const suggestBackgrounds = async (prompt: string): Promise<BackgroundResp
     ],
   };
 };
+
+export const generateVideo = async (data: VideoRequest) => {
+  console.info("aibackend: generate video", data);
+  await wait (1000);
+  return {
+    url: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=YwArzi9TsmQtryg6"
+  }
+}
