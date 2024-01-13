@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding-top: 1rem;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+.page {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.section {
+    border: 1px solid slategrey;
+    padding: 10px 10px;
+    border-radius: 5px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.center {
+    align-self: center;
+}

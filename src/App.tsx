@@ -1,5 +1,9 @@
+import VideoGenerator from "./pages/VideoGenerator";
+
 function App() {
-  return <div></div>;
-}
+  return <>
+    <VideoGenerator />
+  </>;
+} 
 
 export default App;
