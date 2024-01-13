@@ -20,6 +20,7 @@ export default function VideoGenerator() {
       fetchedScenes.map((scene, i) => ({
         ...scene,
         backgrounds: scenesBackgrounds[i].backgrounds,
+        selectedBackground: scenesBackgrounds[i].backgrounds[0].url,
       }))
     );
     setPrompt(title);
@@ -54,7 +55,11 @@ export default function VideoGenerator() {
         (p) =>
           p?.map((scene, j) =>
             i === j
-              ? { ...scene, backgrounds: sceneBackgrounds.backgrounds }
+              ? {
+                  ...scene,
+                  backgrounds: sceneBackgrounds.backgrounds,
+                  selectedBackground: sceneBackgrounds.backgrounds[0].url,
+                }
               : scene
           ) || null
       );
