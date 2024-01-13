@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import PromptEditor from "../features/PromptEditor";
-import { generateScenes } from "../api/aibackend";
+import { generateScenes, suggestBackgrounds } from "../api/aibackend";
 import ScenesEditor from "../features/ScenesEditor";
 import { Scene } from "../types/data";
 
@@ -13,7 +13,15 @@ export default function VideoGenerator() {
   const handlePromptConfirm = useCallback(async () => {
     setLoading(true);
     const { title, scenes: fetchedScenes } = await generateScenes(prompt);
-    setScenes(fetchedScenes);
+    const scenesBackgrounds = await Promise.all(
+      fetchedScenes.map(({ title }) => suggestBackgrounds(title))
+    );
+    setScenes(
+      fetchedScenes.map((scene, i) => ({
+        ...scene,
+        backgrounds: scenesBackgrounds[i].backgrounds,
+      }))
+    );
     setPrompt(title);
     setLoading(false);
   }, [prompt]);
@@ -25,6 +33,36 @@ export default function VideoGenerator() {
     );
   }, []);
 
+  const handleSuggestNewVideos = useCallback(
+    async (i: number) => {
+      if (!scenes) return;
+      setLoading(true);
+      setScenes(
+        (p) =>
+          p?.map((scene, j) =>
+            i === j
+              ? {
+                  ...scene,
+                  backgrounds: undefined,
+                  selectedBackground: undefined,
+                }
+              : scene
+          ) || null
+      );
+      const sceneBackgrounds = await suggestBackgrounds(scenes[i].title);
+      setScenes(
+        (p) =>
+          p?.map((scene, j) =>
+            i === j
+              ? { ...scene, backgrounds: sceneBackgrounds.backgrounds }
+              : scene
+          ) || null
+      );
+      setLoading(false);
+    },
+    [scenes]
+  );
+
   return (
     <div className="section page column">
       <PromptEditor
@@ -35,7 +73,11 @@ export default function VideoGenerator() {
       />
       {scenes != null && (
         <>
-          <ScenesEditor scenes={scenes} onChangeScene={handleChangeScene} />
+          <ScenesEditor
+            scenes={scenes}
+            onChangeScene={handleChangeScene}
+            onSuggestNewVideos={handleSuggestNewVideos}
+          />
           <button>Generate Video</button>
         </>
       )}

@@ -6,10 +6,10 @@ export interface Scene {
   title: string;
   narration: string;
   bulletPoints: BulletPoint[];
-  backgrounds?: string[];
+  backgrounds?: Background[];
+  selectedBackground?: string;
 }
 
-export interface SceneResponse {
-  title: string;
-  scenes: Scene[];
+export interface Background {
+  url: string;
 }

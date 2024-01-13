@@ -3,15 +3,18 @@ import Input from "../components/Input";
 import Section from "../components/Section";
 import { Scene } from "../types/data";
 import BulletPointsEditor from "./BulletPointsEditor";
+import BackgroundSelector from "./BackgroundSelector";
 
 interface SceneEditorProps {
   scene: Scene;
   onChange: (k: string, v: unknown) => void;
+  onSuggestNewVideos: () => void;
 }
 
 export default function SceneEditor({
-  scene: { title, narration, bulletPoints, backgrounds },
+  scene: { title, narration, bulletPoints, backgrounds, selectedBackground },
   onChange,
+  onSuggestNewVideos,
 }: SceneEditorProps) {
   const handleChange = useCallback(
     (k: string) => (v: unknown) => {
@@ -44,6 +47,14 @@ export default function SceneEditor({
         bulletPoints={bulletPoints}
         onChangeBulletPoint={handleChangeBulletPoint}
       />
+      {backgrounds ? (
+        <BackgroundSelector
+          backgrounds={backgrounds}
+          onSuggestNewVideos={onSuggestNewVideos}
+          onSelect={handleChange("selectedBackground")}
+          selected={selectedBackground}
+        />
+      ) : <div>Loading suggested backgrounds...</div>}
     </Section>
   );
 }

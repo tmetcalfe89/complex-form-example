@@ -1,4 +1,9 @@
-import { SceneResponse } from "../types/data";
+import { Scene, Background } from "../types/data";
+
+export interface SceneResponse {
+  title: string;
+  scenes: Scene[];
+}
 
 const wait = (ms: number) =>
   new Promise((res) => {
@@ -8,7 +13,7 @@ const wait = (ms: number) =>
 export const generateScenes = async (
   prompt: string
 ): Promise<SceneResponse> => {
-  console.info("aibackend: generate scene");
+  console.info("aibackend: generate scene", { prompt });
   await wait(1000);
   return {
     title: `Title: ${prompt}`,
@@ -27,5 +32,29 @@ export const generateScenes = async (
         },
       ],
     })),
+  };
+};
+
+interface BackgroundResponse {
+  backgrounds: Background[];
+}
+
+const getRandom = (max: number, min: number | undefined = 0) => Math.floor(Math.random() * (max - min)) + min;
+
+export const suggestBackgrounds = async (prompt: string): Promise<BackgroundResponse> => {
+  console.info("aibackend: suggest videos", { prompt });
+  await wait(1000);
+  return {
+    backgrounds: [
+      {
+        url: `https://picsum.photos/id/${getRandom(100)}/200/200`,
+      },
+      {
+        url: `https://picsum.photos/id/${getRandom(100)}/200/200`,
+      },
+      {
+        url: `https://picsum.photos/id/${getRandom(100)}/200/200`,
+      },
+    ],
   };
 };
