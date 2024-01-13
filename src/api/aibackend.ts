@@ -1,23 +1,9 @@
+import { SceneResponse } from "../types/data";
+
 const wait = (ms: number) =>
   new Promise((res) => {
     setTimeout(res, ms);
   });
-
-export interface BulletPoint {
-  text: string;
-}
-
-export interface Scene {
-  title: string;
-  narration: string;
-  bulletPoints: BulletPoint[];
-  backgrounds?: string[];
-}
-
-interface SceneResponse {
-  title: string;
-  scenes: Scene[];
-}
 
 export const generateScenes = async (
   prompt: string

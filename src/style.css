@@ -1,29 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Roboto:wght@400;700&display=swap");
+
 body {
-    margin: 0;
-    padding-top: 1rem;
+  margin: 0;
+  padding-top: 1rem;
+  font-family: Roboto;
 }
 
-h1, h2, h3, h4, h5 {
-    margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+label {
+  font-weight: bold;
+}
+
+textarea {
+  resize: none;
+  height: 5em;
 }
 
 .page {
-    max-width: 500px;
-    margin: 0 auto;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .section {
-    border: 1px solid slategrey;
-    padding: 10px 10px;
-    border-radius: 5px;
+  border: 1px solid slategrey;
+  padding: 10px 10px;
+  border-radius: 5px;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .center {
-    align-self: center;
+  align-self: center;
 }
